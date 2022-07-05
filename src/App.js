@@ -53,6 +53,7 @@ function DropDownMenu(){
     return(
       <div className="dropdown">
         <DropDownItem>My Profile</DropDownItem>
+        <DropDownItem leftIcon={<CogIcon/>} rightIcon={<CogIcon/>}>Settings</DropDownItem>
 
       </div>
     );
