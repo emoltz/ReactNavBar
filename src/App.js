@@ -4,7 +4,6 @@ import {ReactComponent as MessengerIcon} from "./icons/messenger.svg";
 import {ReactComponent as CaretIcon} from "./icons/caret.svg";
 import {ReactComponent as PlusIcon} from "./icons/plus.svg";
 import {ReactComponent as CogIcon} from "./icons/cog.svg";
-import {ReactComponent as BoltIcon} from "./icons/bolt.svg";
 import {ReactComponent as ArrowIcon} from "./icons/arrow.svg";
 
 
@@ -13,21 +12,18 @@ import {CSSTransition} from 'react-transition-group';
 
 
 function App() {
-    return (
-        <Navbar>
+    return (<Navbar>
             <NavItem icon={<PlusIcon/>}/>
             <NavItem icon={<BellIcon/>}/>
             <NavItem icon={<MessengerIcon/>}/>
             <NavItem icon={<CaretIcon/>}>
                 <DropDownMenu/>
             </NavItem>
-        </Navbar>
-    );
+        </Navbar>);
 }
 
 function Navbar(props) {
-    return (
-        <nav className="navbar">
+    return (<nav className="navbar">
             <ul className="navbar-nav">
                 {props.children}
             </ul>
@@ -47,12 +43,9 @@ function DropDownMenu() {
     }
 
     function DropDownItem(props) {
-        return (
-            <a href={"#"}
-               className={"menu-item"}
-               onClick={
-                   () => props.goToMenu && setActiveMenu(props.goToMenu)
-               }
+        return (<a href={"#"}
+                   className={"menu-item"}
+                   onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
             >
               <span className="icon-button">
                   {props.leftIcon}
@@ -63,8 +56,7 @@ function DropDownMenu() {
                   {props.rightIcon}
               </span>
 
-            </a>
-        );
+            </a>);
     }
 
     return (
@@ -107,23 +99,18 @@ function DropDownMenu() {
                 </div>
 
             </CSSTransition>
-        </div>
-    );
+        </div>);
 }
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
 
-    return (
-        <li className={"nav-item"}>
-            <a href="#" className={"icon-button"} onClick={
-                () => setOpen(!open)
-            }>
+    return (<li className={"nav-item"}>
+            <a href="#" className={"icon-button"} onClick={() => setOpen(!open)}>
                 {props.icon}
             </a>
             {open && props.children}
-        </li>
-    );
+        </li>);
 }
 
 export default App;
