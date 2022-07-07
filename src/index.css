@@ -87,6 +87,7 @@ a{
   padding: 1rem;
   /*hiding overflow items*/
   overflow:hidden;
+  transition: height var(--speed) ease;
 }
 
 .menu-item{

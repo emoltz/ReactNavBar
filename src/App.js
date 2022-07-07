@@ -7,8 +7,9 @@ import {ReactComponent as CogIcon} from "./icons/cog.svg";
 import {ReactComponent as BoltIcon} from "./icons/bolt.svg";
 import {ReactComponent as ArrowIcon} from "./icons/arrow.svg";
 
-import React, {useState} from 'react';
-import {CSSTransition} from "react-transition-group";
+
+import React, {useState, useEffect, useRef} from 'react';
+import {CSSTransition} from 'react-transition-group';
 
 
 function App() {
@@ -37,6 +38,13 @@ function Navbar(props) {
 
 function DropDownMenu() {
     const [activeMenu, setActiveMenu] = useState(`main`);
+    const [menuHeight, setMenuHeight] = useState(null);
+
+
+    function calcHeight(el) {
+        const height = el.offsetHeight;
+        setMenuHeight(height);
+    }
 
     function DropDownItem(props) {
         return (
@@ -61,19 +69,21 @@ function DropDownMenu() {
 
     return (
 
-        <div className="dropdown">
+        <div className="dropdown"
+             style={{height: menuHeight}}>
             <CSSTransition
                 in={activeMenu === 'main'}
                 unmountOnExit
                 timeout={500}
-                classNames = "menu-primary"
+                classNames="menu-primary"
+                onEnter={calcHeight}
             >
                 <div className={"menu"}>
                     <DropDownItem>My Profile</DropDownItem>
                     <DropDownItem
-                        leftIcon={<CogIcon />}
-                        rightIcon={<CogIcon />}
-                        goToMenu = "settings"
+                        leftIcon={<CogIcon/>}
+                        rightIcon={<CogIcon/>}
+                        goToMenu="settings"
                     >
                         Settings
                     </DropDownItem>
@@ -85,12 +95,12 @@ function DropDownMenu() {
                 in={activeMenu === 'settings'}
                 unmountOnExit
                 timeout={500}
-                classNames = "menu-secondary"
+                classNames="menu-secondary"
             >
                 <div className={"menu"}>
                     <DropDownItem
-                        leftIcon={<ArrowIcon />}
-                        goToMenu={"main"} />
+                        leftIcon={<ArrowIcon/>}
+                        goToMenu={"main"}/>
                     <DropDownItem>Settings</DropDownItem>
 
 
