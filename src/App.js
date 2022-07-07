@@ -5,6 +5,8 @@ import {ReactComponent as CaretIcon} from "./icons/caret.svg";
 import {ReactComponent as PlusIcon} from "./icons/plus.svg";
 import {ReactComponent as CogIcon} from "./icons/cog.svg";
 import {ReactComponent as BoltIcon} from "./icons/bolt.svg";
+import {ReactComponent as ArrowIcon} from "./icons/arrow.svg";
+
 import React, {useState} from 'react';
 import {CSSTransition} from "react-transition-group";
 
@@ -38,7 +40,12 @@ function DropDownMenu() {
 
     function DropDownItem(props) {
         return (
-            <a href={"#"} className={"menu-item"}>
+            <a href={"#"}
+               className={"menu-item"}
+               onClick={
+                   () => props.goToMenu && setActiveMenu(props.goToMenu)
+               }
+            >
               <span className="icon-button">
                   {props.leftIcon}
               </span>
@@ -55,11 +62,41 @@ function DropDownMenu() {
     return (
 
         <div className="dropdown">
-            <CSSTransition>
-                <DropDownItem>My Profile</DropDownItem>
-                <DropDownItem leftIcon={<CogIcon/>} rightIcon={<CogIcon/>}>Settings</DropDownItem>
+            <CSSTransition
+                in={activeMenu === 'main'}
+                unmountOnExit
+                timeout={500}
+                classNames = "menu-primary"
+            >
+                <div className={"menu"}>
+                    <DropDownItem>My Profile</DropDownItem>
+                    <DropDownItem
+                        leftIcon={<CogIcon />}
+                        rightIcon={<CogIcon />}
+                        goToMenu = "settings"
+                    >
+                        Settings
+                    </DropDownItem>
+                </div>
+
             </CSSTransition>
 
+            <CSSTransition
+                in={activeMenu === 'settings'}
+                unmountOnExit
+                timeout={500}
+                classNames = "menu-secondary"
+            >
+                <div className={"menu"}>
+                    <DropDownItem
+                        leftIcon={<ArrowIcon />}
+                        goToMenu={"main"} />
+                    <DropDownItem>Settings</DropDownItem>
+
+
+                </div>
+
+            </CSSTransition>
         </div>
     );
 }
